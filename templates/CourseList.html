@@ -1,0 +1,63 @@
+{% extends 'navbar.html' %}
+{% block title %}Dashboard{% endblock title %}
+{% block myProfile %}
+{% url 'myProfile' student.stud_id %}
+{% endblock %}
+{% block Home %}
+{% url 'StudentHome'%}
+{% endblock %}
+{% block user %}
+{{student.full_name}}
+{% endblock user %}
+{% block content %}
+
+<div>
+    <!--navigation links-->
+    <div class="container ">
+       <div class="container shadow-sm m-5">
+          <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+             <ol class="breadcrumb p-3">
+                <li class="breadcrumb-item active" aria-current="page"><b>List Of Courses</b></li>
+             </ol>
+          </nav>
+       </div>
+       {% if courses %}
+
+       <!-- Course container -->
+       <div class="card_primary d-flex justify-content-center flex-wrap" >
+         <div>
+            <h2> Department : {{student.department_name}} </h2>
+          </div>
+          {% for i in courses %}
+         
+          <!-- individual course starts -->
+              
+            <div class="cd card text-center my-4 mx-4" style="width: 30rem !important;">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold"> {{i.course_name}}-{{i.course_code}} </h5>
+                    <a href="{% url 'studentCoursePage' i.course_code %}" class="btn btn-outline-dark px-5">Click To View Course</a>
+                </div>
+                {{ faculty.full_name}}
+                <div class="card-footer text-light fw-bold" style=" background-color:#66979f;color:white !important;">
+                    {% if i.faculty_id %}
+                    Course Teacher : {%if i.faculty_id in dict%}
+                    {{dict|get_item:i.faculty_id}}
+                    {%endif%}
+                     
+                    {% else %}
+                    Faculty not assigned yet
+                    {% endif %}
+                </div>
+             </div>
+             <!-- individual course ends -->
+          {% endfor %}
+          <!-- Course container ends -->
+       </div>
+       {% else %}
+       <div class="text-center fs-5 text-secondary">
+          <p>No Courses Enrolled to Show</p>
+       </div>
+       {% endif %}
+    </div>
+ </div>
+ {% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'navbar.html' %}
+{% block title %}Students Enrolled{% endblock title %}
+{% block courses %}
+{% endblock %}
+{% block user %}
+{{faculty.full_name}}
+{% endblock user %}
+{% block myProfile %}
+{% url 'myProfile' faculty.fac_id %}
+{% endblock %}
+{% block Home %}
+{% url 'facultyHome'%}
+{% endblock %}
+{% block content %}
+<div>
+    <!--navigation links-->
+    <div class="container">
+       <div class="container shadow-sm m-5">
+          <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+             <ol class="breadcrumb p-3">
+                <li class="breadcrumb-item active" aria-current="page"><b>{{courses.course_name}}  {{courses.course_code }} </b> </li>
+             </ol>
+          </nav>
+       </div>
+       <div class="my-5">
+        <h3>List Of Students Enrolled :</h3>
+        <hr>
+    </div>
+    <h4> Total Number of Students Enrolled : {{student_count}}</h4>
+<div>
+    <br><br>
+<table class="table table-hover table-bordered">
+    <thead>
+      <tr style=" background-color:#66979f;color:white !important;">
+        <th scope="col">Student MIS</th>
+        <th scope="col">Student Name</th>
+        <th scope="col">Student Mail ID</th>
+        <th scope="col">Department</th>
+      </tr>
+    </thead>
+  
+    {% if student %}
+    <tbody>
+    {% for i in student %}
+      <tr style="color: black !important;">
+        <th scope="row">{{i.stud_id}}</th>
+        <td>{{i.full_name}}</td>
+        <td>{{i.email_id}}</td>
+        <td>{{i.department_name}}</td>
+      </tr></a>
+    {% endfor %}
+    {%else%}<tr style="scope:row; text-align:center; !important"><td>NO STUDENTS HAVE ENROLLED</td></tr>
+    </tbody>
+    {%endif%}
+  </table>
+</div>
+{%endblock%}

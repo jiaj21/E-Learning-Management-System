@@ -1,0 +1,41 @@
+{% extends 'navbar.html' %}
+{% block title %}{{courses.course_name}} | Add Material{% endblock title %} 
+{% block courses %}
+{% endblock %}
+{% block user %}
+{{faculty.full_name}} 
+{% endblock user %}
+{% block myProfile %}
+{% url 'myProfile' faculty.fac_id %}
+{% endblock %}
+{% block Home %}
+{% url 'facultyHome'%}
+{% endblock %}
+{% block content %}
+<div class="container m-5">
+
+    <form class="well form-horizontal"  method="POST"  id="contact_form" enctype="multipart/form-data">
+        {% csrf_token %}
+<fieldset>
+<!-- Form Name -->
+<legend>Enter Assignments Details Here :  </legend>
+
+{%for i in forms%}
+<div>
+  {{i}}
+</div>
+{%endfor%} 
+
+<div class="form-group">
+    <label class="col-md-4 control-label"></label>
+    <div class="col-md-4">
+      <button type="submit" class="btn btn-warning m-4" style=" background-color:#66979f;color:white !important;">Submit<span class="glyphicon glyphicon-send"></span></button>
+      <button type="reset" class="btn btn-warning m-4"style=" background-color:#66979f;color:white !important;" >Reset<span class="glyphicon glyphicon-send"></span></button>
+    </div>
+  </div>
+  {{forms.error}}
+  </fieldset>
+  </form>
+  </div>
+      </div><!-- /.container -->
+    {%endblock%}

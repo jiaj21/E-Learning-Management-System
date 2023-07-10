@@ -1,0 +1,88 @@
+{% extends 'navbar.html' %}
+{% block title %}About Assignment{% endblock title %}
+{% block courses %}
+{% endblock %}
+{% block user %}
+{{faculty.full_name}}
+{% endblock user %}
+{% block myProfile %}
+{% url 'myProfile' faculty.fac_id %}
+{% endblock %}
+{% block Home %}
+{% url 'facultyHome'%}
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+            <div class="col-12">
+                <!-- Page title -->
+                <div class="my-5" >
+                    <h3>Assignment Details :</h3>
+                    <hr>
+                </div>
+                
+                <div class="col-lg-6 px-xl-10">
+                    
+                    <ul class="list-unstyled mb-1-9">
+                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Assignment Number :</span> {{assign.assign_number}}</li>
+                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Assignment Title :</span> {{assign.assign_title}}</li>
+                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Assignment Question :</span> {{assign.question}}</li>
+                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Assignment Deadline :</span> {{assign.deadline}}</li>
+                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Assignment File :</span> <a href="{{ assign.file.url }}">Download File</a></li>
+                       
+                    </ul>
+                        </div>
+                        <div clas="container">
+                            <a href="{% url 'facultyEditAssignment' assign.assign_number %}" class="btn  btn-outline-secondary m-4" role="button" style=" background-color:#66979f;color:white !important;">Edit Assignment</a> 
+                        <a class="btn btn-outline-secondary m-4" href="{% url 'facultyDeleteAssignment' assign.assign_number %}" role="button" style=" background-color:#66979f;color:white !important;">Delete Assignment</a>
+                    </div> 
+                    <div class="col-12">
+                        <!-- Page title -->
+                        <div class="my-5">
+                            <h3>Submission Details :</h3>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="m-4"><h5>Total students in course : {{total_count}}</h5></div>
+                    <div class="m-4"><h5>Total Submissions : {{submitted_count}}</h5></div>
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                          <tr style=" background-color:#66979f !important;">
+                            <th scope="col">Student ID</th>
+                            <th scope="col">Student Name</th>
+                            <th scope="col">Submitted Time</th>
+                            <th scope="col">Submission</th>
+                          </tr>
+                        </thead>
+    {% if submission %}
+    <tbody>
+    {% for i in submission %} 
+      <tr>
+        <th scope="row">{{i.student_code.stud_id}}</th>
+        <td>{{i.student_code.full_name}}</td>
+        <td>{{i.submitted_time}}</td>
+        <td><a href="{{ i.submission_file.url }}">{{i.submission_file}}</a></td>
+      </tr></a>
+    {% endfor %}
+    {%else%}<tr style="scope:row; text-align:center; !important"><td>NO SUBMISSIONS TO SHOW</td></tr>
+    </tbody>
+    {%endif%}
+  </table>
+                    
+                        
+    </div>
+    
+                   
+                        
+                    {% if messages %}
+                    {% for message in messages %}
+                    {{message}}
+                    {%endfor%}
+                    {% endif %}
+                   
+                </form> <!-- Form END -->
+            </div>
+        </div>
+        </div>
+{%endblock%}

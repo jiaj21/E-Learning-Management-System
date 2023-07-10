@@ -1,0 +1,97 @@
+{% extends 'navbar.html' %}
+{% block title %}{{courses.course_name}} | Create Assignment{% endblock title %} 
+{% block courses %}
+{% endblock %}
+{% block user %}
+{{faculty.full_name}} 
+{% endblock user %}
+{% block myProfile %}
+{% url 'myProfile' faculty.fac_id %}
+{% endblock %}
+{% block Home %}
+{% url 'facultyHome'%}
+{% endblock %}
+{% block content %}
+<div class="container m-3">
+
+    <form class="well form-horizontal"  method="POST"  id="contact_form" enctype="multipart/form-data">
+        {% csrf_token %}
+<fieldset>
+<!-- Form Name -->
+<legend>Enter Assignments Details Here :  </legend>
+
+<!-- Text input-->
+
+{% comment %} <div class="form-group">
+  <label class="col-md-4 control-label m-2" name="Assignment Number">Assignment Number</label>  
+  <div class="col-md-4 inputGroupContainer">
+  <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+  <input  name="Assignment Number" class="form-control"  type="number">
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label m-2" name="Assignment Title" >Assignment Title : </label> 
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+  <input name="Assignment Title" placeholder="Enter Title" class="form-control"  type="text">
+    </div>
+  </div>
+</div>
+
+
+  
+<div class="form-group">
+  <label class="col-md-4 control-label m-2" name="Question">Assignment Question : </label>
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+        	<textarea class="form-control" name="Question" placeholder="Type Question Here"></textarea>
+  </div>
+  </div>
+</div>
+
+ <!--File Upload-->
+ <br><br>
+ <div class="custom-file">
+    <input type="file" class="custom-file-input" id="customInput" name="File">
+    <label class="custom-file-label" for="customInput" name="File"></label>
+</div>
+ <div class="form-group">
+    <input type="datetime-local" class="custom-file-input" id="customInput" name="Deadline">
+    <label class="custom-file-label" for="customInput" name=""></label>
+</div> {% endcomment %}
+
+{%for i in forms%}
+<div>
+  {{i}}
+</div>
+{%endfor%} 
+
+{% comment %} <!--File Upload-->
+<br><br>
+<div class="custom-file">
+   <input type="file" class="custom-file-input" id="customInput" name='file'>
+   <label class="custom-file-label" for="customInput"></label>
+</div> {% endcomment %}
+
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label"></label>
+  <div class="col-md-4">
+    <button type="submit" class="btn btn-warning m-4" style=" background-color:#66979f;color:white !important;" >Submit<span class="glyphicon glyphicon-send"></span></button>
+    <button type="reset" class="btn btn-warning m-4" style=" background-color:#66979f;color:white !important;">Reset<span class="glyphicon glyphicon-send"></span></button>
+  </div>
+</div>
+{{forms.error}}
+</fieldset>
+</form>
+</div>
+    </div><!-- /.container -->
+  {%endblock%}

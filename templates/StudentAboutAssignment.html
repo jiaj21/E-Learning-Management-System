@@ -1,0 +1,108 @@
+{% extends 'navbar.html' %}
+{% block title %}{{courses.course_name}} | Assignment{% endblock title %}
+{% block courses %}
+{% endblock %}
+{% block user %}
+{{student.full_name}}
+{% endblock user %}
+{% block myProfile %}
+{% url 'myProfile' student.stud_id %}
+{% endblock %}
+{% block Home %}
+{% url 'StudentHome'%}
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="container shadow-sm m-5">
+       <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50%' height='50%' %3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+          <ol class="breadcrumb p-3">
+             <li class="breadcrumb-item active" aria-current="page" ><b>Assignments : {{courses.course_name}}  {{courses.course_code }} </b> </li>
+          </ol>
+       </nav>
+    </div>
+    <p><h3>Assignment Details : </h3></p>
+    <div class="d-flex justify-content-center">
+        <table class="table table-hover table-bordered equal-columns-table" >
+            <tr>
+                <th style="width=50% margin:1px !important;">Assignment Number :</th>
+                <td style="width=50% !important;">{{ assign.assign_number }}</td>
+            </tr>
+            <tr>
+                <th style="width=50% margin:1px !important;">Assignment Title :</th>
+                <td style="width=50% !important;">{{ assign.assign_title }}</td>
+            </tr>
+            <tr>
+                <th style="width=50% margin:1px !important;">Question : </th>
+                <td style="width=50% !important;">{{assign.question}}</td>
+            </tr>
+            {%if assign.file%}
+            <tr>
+                <th style="width=50% margin:1px !important;">Question File : </th>
+                <td style="width=50% !important;"><a href="{{ assign.file.url }}">Download File</a></td>
+            </tr>
+            {%endif%}
+            <tr>
+                <th style="width=50% margin:1px !important;">Deadline : </th>
+                <td style="width=50% !important;">{{assign.deadline}}</td>
+            </tr>
+        </table>
+    </div>
+    {%if submission%}
+    <div><a class="btn btn-outline-secondary m-4" href="{%url 'EditSubmission' assign.assign_number student.stud_id courses.course_code %}" role="button"style=" background-color:#66979f;color:white !important;">Edit Submission</a> 
+    <a class="btn btn-outline-secondary m-4" href="{%url 'DeleteSubmission' assign.assign_number student.stud_id courses.course_code %}" role="button"style=" background-color:#66979f;color:white !important;">Delete Submission</a> 
+    {%else%}
+    <div><a class="btn btn-outline-secondary m-4" href="{%url 'StudentSubmission' assign.assign_number student.stud_id courses.course_code %}" role="button" style=" background-color:#66979f;color:white !important;">Add Submission</a> 
+    </div>
+    {%endif%}
+    <p><h3>Submission Status : </h3></p>
+    {%if submission%}
+    <div class="d-flex justify-content-center">
+        <table class="table table-hover table-bordered equal-columns-table" >
+            <tr>
+                <th style="width=50% margin:1px !important;">Submission Status :</th>
+                <td style="width=50% !important;">Assignment has been submitted.</td>
+            </tr>
+            <tr>
+                <th style="width=50% margin:1px !important;">Last Modified :</th>
+                <td style="width=50% !important;">{{ submission.submitted_time }}</td>
+            </tr>
+            <tr>
+                {%if due%}
+                <th style="width=50% margin:1px !important;">Time Remaining : </th>
+                <td style="width=50%; background-color: #b3d0a5 !important;">Assignment was submitted {{days}} days and {{hours}} hours early</td>
+                {%else%}
+                <th style="width=50% margin:1px !important;">Time Remaining : </th>
+                <td style="width=50%; background-color:#d8bcbc !important;">Assignment was submitted {{days}} days and {{hours}} hours late.</td>
+                {%endif%}
+            </tr>
+            <tr>
+                <th style="width=50% margin:1px !important;">Question File : </th>
+                <td style="width=50% !important;"><a href="{{ submission.submission_file.url }}">Download File</a></td>
+            </tr>
+        </table>
+    </div>
+    {%else%}
+    <div class="d-flex justify-content-center">
+        <table class="table table-hover table-bordered equal-columns-table" >
+            <tr>
+                <th style="width=50% margin:1px !important;">Submission Status :</th>
+                <td style="width=50% !important;">No Submissions Have Been Made Yet</td>
+            </tr>
+            <tr>
+                <th style="width=50% margin:1px !important;">Last Modified :</th>
+                <td style="width=50% !important;">-</td>
+            </tr>
+            <tr>
+                {%if due%}
+                <th style="width=50% margin:1px !important;">Time Remaining : </th>
+                <td style="width=50% !important;"> {{days}} days and {{hours}} hours remaining.</td>
+                {%else%}
+                <th style="width=50% margin:1px !important;">Time Remaining : </th>
+                <td style="width=50%; background-color:#d8bcbc !important;">Assignment is overdue by : {{days}} days and {{hours}} hours.</td>
+                {%endif%}
+            </tr>
+        </table>
+    </div>
+    {%endif%}
+    
+{%endblock%}

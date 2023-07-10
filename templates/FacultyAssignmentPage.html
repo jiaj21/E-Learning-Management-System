@@ -1,0 +1,55 @@
+{% extends 'navbar.html' %}
+{% block title %}{{courses.course_name}} | Assignment{% endblock title %}
+{% block courses %}
+{% endblock %}
+{% block user %}
+{{faculty.full_name}}
+{% endblock user %}
+{% block myProfile %}
+{% url 'myProfile' faculty.fac_id %}
+{% endblock %}
+{% block Home %}
+{% url 'facultyHome'%}
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="container shadow-sm m-3">
+       <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+          <ol class="breadcrumb p-3">
+             <li class="breadcrumb-item active" aria-current="page"><b>Assignments : {{courses.course_name}}  {{courses.course_code }} </b> </li>
+          </ol>
+       </nav>
+    </div>
+    <div><a class="btn btn-outline-secondary m-4" href="{% url 'CreateAssignmentPage' courses.course_code%}" role="button" style=" background-color:#66979f;color:white !important;">Create New Assignment</a> 
+    </div>
+    <!-- other assignment details -->
+    <div>
+    <br><br>
+<table class="table table-hover">
+    <thead>
+      <tr style=" background-color:#66979f; color:black !important;">
+        <th scope="col">Assignment Number</th>
+        <th scope="col">Assignment Title</th>
+        <th scope="col">Created</th>
+        <th scope="col">Deadline</th>
+      </tr>
+    </thead>
+  
+    {% if assign %}
+    <tbody>
+    {% for i in assign %}
+    <a  href="{% url 'AboutAssignment' i.assign_number%}" role="button"> 
+      <tr style="color: black !important;" onclick="window.location.href = '{% url 'AboutAssignment' i.assign_number %}'">
+        <th scope="row">{{i.assign_number}}</th>
+        <td>{{i.assign_title}}</td>
+        <td>{{i.created}}</td>
+        <td>{{i.deadline}}</td>
+      </tr></a>
+    {% endfor %}
+    {%else%}<tr style="scope:row; text-align:center; !important"><td>NO ASSIGNMENTS TO SHOW</td></tr>
+    </tbody>
+    {%endif%}
+  </table>
+</div>
+{%endblock%}

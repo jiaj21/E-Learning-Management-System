@@ -1,0 +1,42 @@
+{% extends 'navbar.html' %}
+{% block title %} My Profile{% endblock title %}
+{% block myProfile %}
+{% url 'myProfile' student.stud_id %}
+{% endblock %}
+{% block Home %}
+{% url 'StudentHome'%}
+{% endblock %}
+{% block user %}
+{{student.full_name}}
+{% endblock user %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+            <div class="col-12">
+                <!-- Page title -->
+                <div class="my-5">
+                    <h3>My Profile</h3>
+                    <hr>
+                </div>
+                
+                <div class="col-lg-6 px-xl-10">
+                    
+                    <ul class="list-unstyled mb-1-9">
+                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Student Name :</span> {{student.full_name}}</li>
+                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">College ID :</span> {{student.stud_id}}</li>
+                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Email ID :</span> {{student.email_id}}</li>
+                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Mobile Number :</span> {{student.mobile_no}}</li>
+                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Department :</span> {{student.department_name}}</li>
+                       
+                    </ul>
+                        </div>
+                        <div clas="container">
+                            <a href="{% url 'changeStudentPassword' %}" class="btn btn-info" role="button"style=" background-color:#66979f;color:white !important;">Change Password</a>
+                        </div>
+    
+                   
+                        
+        </div>
+        </div>
+{%endblock%}

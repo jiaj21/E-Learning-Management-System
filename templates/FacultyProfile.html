@@ -1,0 +1,50 @@
+{% extends 'navbar.html' %}
+{% block title %} My Profile{% endblock title %}
+{% block myProfile %}
+{% url 'myProfile' faculty.fac_id %}
+{% endblock %}
+{% block user %}
+{{faculty.full_name}}
+{% endblock user %}
+{% block Home %}
+{% url 'facultyHome'%}
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+            <div class="col-12">
+                <!-- Page title -->
+                <div class="my-5">
+                    <h3>My Profile</h3>
+                    <hr>
+                </div>
+                
+                <div class="col-lg-6 px-xl-10">
+                    
+                    <ul class="list-unstyled mb-1-9">
+                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Faculty Name :</span> {{faculty.full_name}}</li>
+                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Faculty ID :</span> {{faculty.fac_id}}</li>
+                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Email ID :</span> {{faculty.email_id}}</li>
+                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Mobile Number :</span> {{faculty.mobile_no}}</li>
+                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Department :</span> {{faculty.department}}</li>
+                       
+                    </ul>
+                        </div>
+                        <div clas="container">
+                            <a href="{% url 'changeFacultyPassword' %}" class="btn btn-info" role="button" style=" background-color:#66979f;color:white !important;">Change Password</a>
+                        </div>  
+    
+                   
+                        
+                    {% if messages %}
+                    {% for message in messages %}
+                    {{message}}
+                    {%endfor%}
+                    {% endif %}
+                   
+                </form> <!-- Form END -->
+            </div>
+        </div>
+        </div>
+{%endblock%}

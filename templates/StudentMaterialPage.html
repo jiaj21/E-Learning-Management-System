@@ -1,0 +1,42 @@
+{% extends 'navbar.html' %}
+{% block title %}{{courses.course_name}} | Course Material{% endblock title %}
+{% block courses %}
+{% endblock %}
+{% block user %}
+{{student.full_name}}
+{% endblock user %}
+{% block myProfile %}
+{% url 'myProfile' student.stud_id %}
+{% endblock %}
+{% block Home %}
+{% url 'StudentHome'%}
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="container shadow-sm m-5">
+       <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+          <ol class="breadcrumb p-3">
+             <li class="breadcrumb-item active" aria-current="page"><b>Assignments : {{courses.course_name}}  {{courses.course_code }} </b> </li>
+          </ol>
+       </nav>
+    </div>
+    {% if material %}
+    {%for i in material%}
+    <div class="card_primary d-flex justify-content-center flex-wrap"  style="width: 100% !important;">
+        <div class="cd card text-center my-4 mx-4" style="width: 100% !important;">
+            <div class="card-header text-light fw-bold"style=" background-color:#66979f;color:white !important;">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title fw-bold" style="color:black !important;"> {{i.material_number}} : {{i.material_title}}</h5>
+                <a href="{{ i.file.url }}" class="btn btn-outline-dark px-5"  style="width: 60% !important;">Click To Download {{i.file}}</a>
+            </div>
+            <div class="card-header text-light fw-bold">
+            </div>
+         </div>
+   </div>
+{%endfor%}
+{%else%}
+<h2 style="color:grey text-align:center !important">No Course Material To Show</h2>
+{%endif%}
+
+      {%endblock%}
